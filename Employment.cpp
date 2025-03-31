@@ -51,3 +51,38 @@ int searchEmployee(Employee employees[], int count, int id) {
     }
     return -1;
 }
+
+// Update an existing employee's details.
+void updateEmployee(Employee employees[], int count, int id) {
+    int index = searchEmployee(employees, count, id);
+    if (index == -1) {
+        cout << "Employee not found." << endl;
+        return;
+    }
+    
+    cout << "Updating details for employee " << employees[index].name << endl;
+    cin.ignore(); // flush input
+    
+    cout << "Enter new name (press enter to keep [" << employees[index].name << "]): ";
+    string newName;
+    getline(cin, newName);
+    if (!newName.empty()) {
+        employees[index].name = newName;
+    }
+
+    cout << "Enter new position (press enter to keep [" << employees[index].position << "]): ";
+    string newPosition;
+    getline(cin, newPosition);
+    if (!newPosition.empty()) {
+        employees[index].position = newPosition;
+    }
+    
+    cout << "Enter new daily wage (or -1 to keep [" << employees[index].dailyWage << "]): ";
+    double newWage;
+    cin >> newWage;
+    if (newWage >= 0) {
+        employees[index].dailyWage = newWage;
+    }
+    
+    cout << "Employee updated successfully." << endl;
+}
