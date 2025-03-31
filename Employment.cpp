@@ -114,3 +114,29 @@ void displayEmployees(Employee employees[], int count) {
     }
 }
 
+void addAttendanceRecord(AttendanceNode*& head, int employeeID, int day, bool present) {
+    AttendanceNode* newNode = new AttendanceNode;
+    newNode->employeeID = employeeID;
+    newNode->day = day;
+    newNode->present = present;
+    newNode->next = head;
+    head = newNode;
+    cout << "Attendance record added." << endl;
+}
+
+void displayAttendanceForEmployee(AttendanceNode* head, int employeeID) {
+    bool found = false;
+    AttendanceNode* current = head;
+    while (current != NULL) {
+        if (current->employeeID == employeeID) {
+            cout << "Day: " << current->day 
+                 << ", Attendance: " << (current->present ? "Present" : "Absent") << endl;
+            found = true;
+        }
+        current = current->next;
+    }
+    if (!found) {
+        cout << "No attendance records found for employee ID " << employeeID << endl;
+    }
+}
+
