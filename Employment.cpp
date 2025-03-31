@@ -140,3 +140,36 @@ void displayAttendanceForEmployee(AttendanceNode* head, int employeeID) {
     }
 }
 
+bool updateAttendanceRecord(AttendanceNode* head, int employeeID, int day, bool newStatus) {
+    AttendanceNode* current = head;
+    while (current != nullptr) {
+        if (current->employeeID == employeeID && current->day == day) {
+            current->present = newStatus;
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
+
+bool deleteAttendanceRecord(AttendanceNode*& head, int employeeID, int day) {
+    AttendanceNode* current = head;
+    AttendanceNode* prev = nullptr;
+    while (current != nullptr) {
+        if (current->employeeID == employeeID && current->day == day) {
+            if (prev == nullptr) {
+                head = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            delete current;
+            return true;
+        }
+        prev = current;
+        current = current->next;
+    }
+    return false;
+}
+
+
