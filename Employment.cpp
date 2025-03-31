@@ -86,3 +86,17 @@ void updateEmployee(Employee employees[], int count, int id) {
     
     cout << "Employee updated successfully." << endl;
 }
+void deleteEmployee(Employee employees[], int &count, int id) {
+    int index = searchEmployee(employees, count, id);
+    if (index == -1) {
+        cout << "Employee not found." << endl;
+        return;
+    }
+ 
+    for (int i = index; i < count - 1; i++) {
+        employees[i] = employees[i + 1];
+    }
+    count--;
+    cout << "Employee deleted successfully." << endl;
+}
+
