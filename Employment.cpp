@@ -188,3 +188,30 @@ void displayAllAttendance(AttendanceNode* head) {
     }
 }
 
+void calculatePayroll(Employee employees[], int count, AttendanceNode* head) {
+    if (count == 0) {
+        cout << "No employees available for payroll calculation." << endl;
+        return;
+    }
+    
+    cout << "\nPayroll Calculation:" << endl;
+    for (int i = 0; i < count; i++) {
+        int totalDaysPresent = 0;
+        AttendanceNode* current = head;
+        while (current != nullptr) {
+            if (current->employeeID == employees[i].id && current->present) {
+                totalDaysPresent++;
+            }
+            current = current->next;
+        }
+        double salary = totalDaysPresent * employees[i].dailyWage;
+        cout << "Employee ID: " << employees[i].id
+             << ", Name: " << employees[i].name
+             << ", Days Present: " << totalDaysPresent
+             << ", Salary: " << salary << endl;
+    }
+}
+
+
+
+
