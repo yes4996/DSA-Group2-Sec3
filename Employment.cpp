@@ -99,4 +99,18 @@ void deleteEmployee(Employee employees[], int &count, int id) {
     count--;
     cout << "Employee deleted successfully." << endl;
 }
+void displayEmployees(Employee employees[], int count) {
+    if (count == 0) {
+        cout << "No employees to display." << endl;
+        return;
+    }
+    
+    cout << "\nEmployee List:" << endl;
+    for (int i = 0; i < count; i++) {
+        cout << "ID: " << employees[i].id
+             << ", Name: " << employees[i].name
+             << ", Position: " << employees[i].position
+             << ", Daily Wage: " << employees[i].dailyWage << endl;
+    }
+}
 
