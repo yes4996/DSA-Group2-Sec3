@@ -172,4 +172,19 @@ bool deleteAttendanceRecord(AttendanceNode*& head, int employeeID, int day) {
     return false;
 }
 
+void displayAllAttendance(AttendanceNode* head) {
+    if (head == nullptr) {
+        cout << "No attendance records available." << endl;
+        return;
+    }
+    
+    cout << "\nAttendance Records:" << endl;
+    AttendanceNode* current = head;
+    while (current != NULL) {
+        cout << "Employee ID: " << current->employeeID
+             << ", Day: " << current->day
+             << ", Attendance: " << (current->present ? "Present" : "Absent") << endl;
+        current = current->next;
+    }
+}
 
