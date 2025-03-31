@@ -213,5 +213,170 @@ void calculatePayroll(Employee employees[], int count, AttendanceNode* head) {
 }
 
 
+int main() {
+    Employee employees[MAX_EMPLOYEES];
+    int employeeCount = 0;
+    AttendanceNode* attendanceHead = nullptr;
+    
+    int choice;
+    do {
+        cout << "\n--- Workforce Attendance & Payroll System ---\n";
+        cout << "1. Manage Employees\n";
+        cout << "2. Manage Attendance\n";
+        cout << "3. Calculate Payroll\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        
+        switch (choice) {
+            case 1: {
+                int empChoice;
+                do {
+                    cout << "\n-- Manage Employees --\n";
+                    cout << "1. Add Employee\n";
+                    cout << "2. Search Employee\n";
+                    cout << "3. Update Employee\n";
+                    cout << "4. Delete Employee\n";
+                    cout << "5. Display All Employees\n";
+                    cout << "6. Return to Main Menu\n";
+                    cout << "Enter your choice: ";
+                    cin >> empChoice;
+                    switch (empChoice) {
+                        case 1:
+                            addEmployee(employees, employeeCount);
+                            break;
+                        case 2: {
+                            int searchId;
+                            cout << "Enter employee ID to search: ";
+                            cin >> searchId;
+                            int index = searchEmployee(employees, employeeCount, searchId);
+                            if (index != -1) {
+                                cout << "Employee found:\n";
+                                cout << "ID: " << employees[index].id
+                                     << ", Name: " << employees[index].name
+                                     << ", Position: " << employees[index].position
+                                     << ", Daily Wage: " << employees[index].dailyWage << endl;
+                            } else {
+                                cout << "Employee not found." << endl;
+                            }
+                            break;
+                        }
+                        case 3: {
+                            int updateId;
+                            cout << "Enter employee ID to update: ";
+                            cin >> updateId;
+                            updateEmployee(employees, employeeCount, updateId);
+                            break;
+                        }
+                        case 4: {
+                            int deleteId;
+                            cout << "Enter employee ID to delete: ";
+                            cin >> deleteId;
+                            deleteEmployee(employees, employeeCount, deleteId);
+                            break;
+                        }
+                        case 5:
+                            displayEmployees(employees, employeeCount);
+                            break;
+                        case 6:
+                            cout << "Returning to main menu." << endl;
+                            break;
+                        default:
+                            cout << "Invalid choice. Please try again." << endl;
+                    }
+                } while (empChoice != 6);
+                break;
+            }
+            case 2: {
+                int attChoice;
+                do {
+                    cout << "\n-- Manage Attendance --\n";
+                    cout << "1. Add Attendance Record\n";
+                    cout << "2. Search Attendance for an Employee\n";
+                    cout << "3. Update Attendance Record\n";
+                    cout << "4. Delete Attendance Record\n";
+                    cout << "5. Display All Attendance Records\n";
+                    cout << "6. Return to Main Menu\n";
+                    cout << "Enter your choice: ";
+                    cin >> attChoice;
+                    switch (attChoice) {
+                        case 1: {
+                            int empID, day, presChoice;
+                            cout << "Enter employee ID: ";
+                            cin >> empID;
+                            cout << "Enter day (as an integer): ";
+                            cin >> day;
+                            cout << "Is the employee present? (1 for yes, 0 for no): ";
+                            cin >> presChoice;
+                            bool present = (presChoice == 1);
+                            addAttendanceRecord(attendanceHead, empID, day, present);
+                            break;
+                        }
+                        case 2: {
+                            int empID;
+                            cout << "Enter employee ID to search attendance: ";
+                            cin >> empID;
+                            displayAttendanceForEmployee(attendanceHead, empID);
+                            break;
+                        }
+                        case 3: {
+                            int empID, day, presChoice;
+                            cout << "Enter employee ID: ";
+                            cin >> empID;
+                            cout << "Enter day of record to update: ";
+                            cin >> day;
+                            cout << "Enter new attendance status (1 for present, 0 for absent): ";
+                            cin >> presChoice;
+                            bool newStatus = (presChoice == 1);
+                            if (updateAttendanceRecord(attendanceHead, empID, day, newStatus))
+                                cout << "Attendance record updated." << endl;
+                            else
+                                cout << "Attendance record not found." << endl;
+                            break;
+                        }
+                        case 4: {
+                            int empID, day;
+                            cout << "Enter employee ID: ";
+                            cin >> empID;
+                            cout << "Enter day of record to delete: ";
+                            cin >> day;
+                            if (deleteAttendanceRecord(attendanceHead, empID, day))
+                                cout << "Attendance record deleted." << endl;
+                            else
+                                cout << "Attendance record not found." << endl;
+                            break;
+                        }
+                        case 5:
+                            displayAllAttendance(attendanceHead);
+                            break;
+                        case 6:
+                            cout << "Returning to main menu." << endl;
+                            break;
+                        default:
+                            cout << "Invalid choice. Please try again." << endl;
+                    }
+                } while (attChoice != 6);
+                break;
+            }
+            case 3:
+                calculatePayroll(employees, employeeCount, attendanceHead);
+                break;
+            case 4:
+                cout << "Exiting the system." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 4);
+    
+    AttendanceNode* current = attendanceHead;
+    while (current != nullptr) {
+        AttendanceNode* temp = current;
+        current = current->next;
+        delete temp;
+    }
+    
+    return 0;
+}
 
 
