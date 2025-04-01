@@ -370,16 +370,13 @@ int main() {
     } while (choice != 4);
     
     AttendanceNode* current = attendanceHead;
-    while (current != NULL  {
+    while (current != NULL ) {
         AttendanceNode* temp = current;
         current = current->next;
         delete temp;
     }
     
     return 0;
-}
-
-
            
 }
 
